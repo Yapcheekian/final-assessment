@@ -1,9 +1,7 @@
 import os
 import peewee as pw
 import datetime
-from playhouse.postgres_ext import PostgresqlExtDatabase
-
-db = PostgresqlExtDatabase('final_assessment')
+from database import db
 
 class BaseModel(pw.Model):
    created_at = pw.DateTimeField(default=datetime.datetime.now)
@@ -17,5 +15,7 @@ class BaseModel(pw.Model):
        database = db
        legacy_table_names = False
 
-class Store(BaseModel):
+class User(BaseModel):
    name = pw.CharField(unique=True)
+   email = pw.CharField(unique=True)
+   password = pw.CharField(unique=True)
