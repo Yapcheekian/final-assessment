@@ -4,28 +4,82 @@
 
 
 <ion-header>
-    <h1 text-center>Todo-List</h1>
-    <div text-right margin>
-        <a href="{{ url_for('sessions.logout') }}">
-            <ion-button color='danger'>Logout</ion-button>
-        </a>
-    </div>
+    <ion-toolbar color='primary'> 
+        <h1 text-center>To-go-Places</h1>
+        <p text-center margin>Welcome back {{ user }}</p>
+        <div text-center margin>
+            <a href="{{ url_for('sessions.logout') }}">
+                <ion-button color='danger'>Logout</ion-button>
+            </a>
+        </div>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card>
-        <ion-card-content>
-            <form action="{{ url_for('home.upload_file') }}" method='POST' enctype="multipart/form-data">
-                <ion-item>
-                    <ion-input placeholder='Enter new item..' name='item'></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input placeholder='Upload a photo..' name='user_file' type='file'></ion-input>
-                </ion-item>
-                <ion-button type='submit'>Add Item</ion-button>
-                <!-- <button type='submit'>submit</button> -->
-            </form>
-        </ion-card-content>
-    </ion-card>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-content>
+                        <form action="{{ url_for('home.upload_file') }}" method='POST' enctype="multipart/form-data">
+                            <ion-item>
+                                <ion-input placeholder='Enter new item..' name='item'></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-input placeholder='Upload a photo..' name='user_file' type='file'></ion-input>
+                            </ion-item>
+                            <ion-button type='submit' margin>Add Item</ion-button>
+                        </form>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Wishlist</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        {% for image in images %}
+                        {% if image.is_completed == False %}
+                        <ion-item>
+                            <ion-avatar margin>
+                                <img src="{{ image.imageUrl }}" alt="">
+                            </ion-avatar>
+                            <ion-label margin>{{ image.text }}</ion-label>
+                            <form action="{{ url_for('home.complete') }}" method='POST' >
+                                <input type="hidden" value='{{ image.id }}' name='imageId' >
+                                <ion-button type='submit' color='success'>Mark as complete</ion-button>
+                            </form>
+                        </ion-item>
+                        {% endif %}
+                        {% endfor %}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Completed</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        {% for image in images %}
+                        {% if image.is_completed == True %}
+                        <ion-item>
+                            <ion-avatar margin>
+                                <img src="{{ image.imageUrl }}" alt="">
+                            </ion-avatar>
+                            <ion-label margin>{{ image.text }}</ion-label>
+                        </ion-item>
+                        {% endif %}
+                        {% endfor %}
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
 
 
