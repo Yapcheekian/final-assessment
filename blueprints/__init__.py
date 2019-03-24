@@ -5,6 +5,9 @@ from blueprints.sessions.views import sessions_blueprint
 from blueprints.home.views import home_blueprint
 from models.user import User
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
+
+csrf = CSRFProtect(app)
 
 
 app.register_blueprint(users_blueprint, url_prefix='/users')

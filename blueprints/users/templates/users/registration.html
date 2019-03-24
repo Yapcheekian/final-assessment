@@ -13,6 +13,7 @@
                             </ion-card-header>
                             <ion-card-content>
                                 <form action="{{ url_for('users.create') }}" method='POST'>
+                                    <input type="hidden" value='{{ csrf_token() }}' name='csrf_token'>
                                     <ion-item>
                                             <ion-input placeholder='name' name='name' type='text'>
                                             </ion-input>
