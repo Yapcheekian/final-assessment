@@ -4,22 +4,26 @@
 
 
 <ion-header>
-    <ion-item>
-        <h1>Todo-List</h1>
-    </ion-item>
-    <a href="{{ url_for('sessions.logout') }}">
-        <ion-button color='danger'>Logout</ion-button>
-    </a>
+    <h1 text-center>Todo-List</h1>
+    <div text-right margin>
+        <a href="{{ url_for('sessions.logout') }}">
+            <ion-button color='danger'>Logout</ion-button>
+        </a>
+    </div>
 </ion-header>
 <ion-content>
     <ion-card>
         <ion-card-content>
-            <ion-item>
-                <form action="{{ url_for('home.create') }}" method='POST'>
+            <form action="{{ url_for('home.upload_file') }}" method='POST' enctype="multipart/form-data">
+                <ion-item>
                     <ion-input placeholder='Enter new item..' name='item'></ion-input>
-                    <ion-button type='submit'>Add Item</ion-button>
-                </form>
-            </ion-item>
+                </ion-item>
+                <ion-item>
+                    <ion-input placeholder='Upload a photo..' name='user_file' type='file'></ion-input>
+                </ion-item>
+                <ion-button type='submit'>Add Item</ion-button>
+                <!-- <button type='submit'>submit</button> -->
+            </form>
         </ion-card-content>
     </ion-card>
 </ion-content>
