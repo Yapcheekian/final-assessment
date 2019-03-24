@@ -54,3 +54,13 @@ def complete():
 
     return redirect(url_for('home.show'))
 
+@home_blueprint.route('/delete', methods=['POST'])
+def delete():
+
+    imageId = request.form['imageId']
+
+    image = Todo.get_or_none(id=imageId)
+    image.delete_instance()
+    
+    return redirect(url_for('home.show'))
+
