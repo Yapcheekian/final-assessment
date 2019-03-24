@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, url_for
 from database import db
 
@@ -6,6 +7,8 @@ app = Flask(__name__)
 
 import blueprints
 
+
+app.secret_key = os.environ.get('SECRET_KEY')
 
 @app.before_request
 def before_request():

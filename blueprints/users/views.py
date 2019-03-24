@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 from models.user import User
 
 
@@ -19,6 +19,6 @@ def create():
     user = User(name=name, email=email, password=hashed_password)
     user.save()    
 
-    return redirect(url_for('home.show'))
+    return redirect(url_for('sessions.login'))
 
 
