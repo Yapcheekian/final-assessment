@@ -2,8 +2,9 @@ import os
 import peewee as pw
 import datetime
 from database import db
+from flask_login import UserMixin
 
-class BaseModel(pw.Model):
+class BaseModel(pw.Model, UserMixin):
    created_at = pw.DateTimeField(default=datetime.datetime.now)
    updated_at = pw.DateTimeField(default=datetime.datetime.now)
 
