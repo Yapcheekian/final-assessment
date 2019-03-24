@@ -1,5 +1,38 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>Registration</h1>
+    <ion-content>
+        <ion-grid>
+                <ion-row>
+                    <ion-col size='6' offset='3'>
+                        <ion-card>
+                            <ion-card-header>
+                                <ion-card-title text-center>
+                                    Sign Up
+                                </ion-card-title>
+                            </ion-card-header>
+                            <ion-card-content>
+                                <form action="{{ url_for('users.create') }}" method='POST'>
+                                    <ion-item>
+                                            <ion-input placeholder='name' name='name' type='text'>
+                                            </ion-input>
+                                        </ion-item>
+                                        <ion-item>
+                                            <ion-input placeholder='email' name='email' type='email'>
+                                            </ion-input>
+                                        </ion-item>
+                                        <ion-item>
+                                            <ion-input placeholder='password' name='password' type='password'>
+                                            </ion-input>
+                                        </ion-item>
+                                        <div text-right>
+                                            <ion-button type='submit'>Submit</ion-button>
+                                        </div>
+                                </form>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+    </ion-content>
 {% endblock %}
