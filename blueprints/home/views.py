@@ -1,5 +1,9 @@
-from flask import Blueprint, render_template, url_for
+import os
+from flask import Blueprint, render_template, url_for, request, redirect
 from flask_login import login_required
+from util.upload import upload_file_to_s3
+from models.todo import Todo
+from werkzeug.utils import secure_filename
 
 home_blueprint = Blueprint('home', __name__, template_folder='templates/home/')
 
@@ -13,3 +17,31 @@ def show():
 def create():
     item = request.form['item']
     return 'success'
+
+@home_blueprint.route('/upload/', methods=['POST'])
+def upload_file():
+
+    item = request.form['item']
+    
+	# A
+    if "user_file" not in request.files:
+        return "No user_file key in request.files"
+
+	# B
+    file    = request.files["user_file"]
+
+	# C.
+    if file.filename == "":
+        return "Please select a file"
+
+	# D.
+    # if file and allowed_file(file.filename):
+    file.filename = secure_filename(file.filename)
+    output   	  = upload_file_to_s3(file, os.environ.get("S3_BUCKET"))
+
+
+    url = Todo(imageUrl=output, text=item)
+    url.save()
+
+    return redirect(url_for('home.show'))
+
